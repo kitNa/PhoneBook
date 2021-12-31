@@ -1,7 +1,7 @@
 ﻿
 namespace DXApplication1
 {
-    partial class Form2
+    partial class FormForChanges
     {
         /// <summary>
         /// Required designer variable.

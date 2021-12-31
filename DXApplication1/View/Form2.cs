@@ -13,47 +13,34 @@ using DXApplication1;
 
 namespace DXApplication1
 {
-    public partial class Form2 : Form
+    public partial class FormForChanges : Form
     {
-        public FormMain main;
+        public Presenter.PhoneBookPresenter Presenter { private get; set; }
+
         public int rowHandle { get; set; }
 
-        public Form2()
+        public FormForChanges(Presenter.PhoneBookPresenter Presenter)
         {
+            this.Presenter = Presenter;
             InitializeComponent();
-            main = new FormMain();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {   
             try
             {
-                //проверяем является ли введенное значение для номера телефона числом
                 Convert.ToInt32(textBox2.Text);  
 
                 if (this.Text.Contains("Бажаєте додати контакт?"))
                 {
-                    //добавляем данные в новую строку
-                    main.data.PhoneBook.NewRow();
-                    main.data.PhoneBook.Rows.Add(textBox1.Text, textBox2.Text);
-
-                    //вносим изменения в исходний XML-файл
-                    main.ToRewritingXML();
-
-                    ////отображаем новые данные на экране
-                    //main.PhoneBookControl.DataSource = main.data.PhoneBook;
+                    Presenter.ToAddContact(textBox1.Text, textBox2.Text);
                     this.Hide();
-                   // main.ShowDialog();
                 }
                 else if (this.Text.Contains("Бажаєте редагувати контакт?"))
                 {
-                    //вносим изменения в grid
-                    main.data.PhoneBook.Rows[rowHandle].ItemArray = new string[2] { textBox1.Text, textBox2.Text };
-
                     //если пользователь очистил textBox, вызываем MessageBox для подтверждения желания удалить контакт
                     if (this.textBox1.Text == "")
                     {
-                        //вызываем MessageBox с необходимыми параметрами
                         DialogResult result = MessageBox.Show("Ви точно бажаєте видалити цей контакт?",
                             "Підтвердження",
                             MessageBoxButtons.YesNo,
@@ -63,25 +50,13 @@ namespace DXApplication1
 
                         if (result == DialogResult.Yes)
                         {
-                            //удаляем выделенный ряд
-                            main.data.PhoneBook.Rows[rowHandle].Delete();
-
-                            //переписываем исходный XML-файл
-                            main.ToRewritingXML();
-
-                            ////отображаем новые данные на экране
-                            //main.PhoneBookControl.DataSource = main.data.PhoneBook;
+                            Presenter.ToDeleteContact(rowHandle);
                             this.Hide();
-                           // main.ShowDialog();
                         }
                     }
                     else
                     {
-                        //переписываем исходный XML-файл
-                        main.ToRewritingXML();
-
-                        ////отображаем новые данные на экране
-                        //main.PhoneBookControl.DataSource = main.PhoneBookXML.Tables[0];
+                        Presenter.ToChangeContact(rowHandle, textBox1.Text, textBox2.Text);
                         this.Hide();
                     }
                 }
@@ -95,7 +70,6 @@ namespace DXApplication1
         private void button2_Click(object sender, EventArgs e)
         {
             this.Hide();
-          //  main.ShowDialog();
         }
     }
 }
