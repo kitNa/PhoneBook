@@ -17,24 +17,16 @@ namespace DXApplication1
         [STAThread]
         static void Main()
         {
-            //записываем исходный txt файл
-
-            //StreamWriter writer = new StreamWriter("Phone_book.txt");
-
-            //writer.WriteLine("Прізвище та ім'я,Номер телефону");
-            //writer.WriteLine("Головач Маргарита,0667798945");
-            //writer.WriteLine("Радченко Катерина,0634567898");
-            //writer.WriteLine("Вишняківський Дмитро,0934567896");
-
-            //writer.Close();
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-//            MessageBoxManager.Register();
+            var repository = new Model.Repository(Application.StartupPath);
+            var view_main = new FormMain();
+
+            var presenter = new Presenter.PhoneBookPresenter(view_main, repository);
 
             BonusSkins.Register();
-            Application.Run(new FormMain());
+            Application.Run(view_main);
         }
     }
 }
