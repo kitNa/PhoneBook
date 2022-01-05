@@ -20,103 +20,132 @@ namespace DXApplication1.Presenter
     public class PhoneBookPresenter
     {
         private readonly FormForChanges formForChanges;
-        private readonly CheckedListBox checkedList;
-        private readonly IView _view;
-        private readonly IRepository _repository;
-
-        private readonly BindingSource bindingSource = new BindingSource();
+        private readonly IView view;
+        private readonly IRepository repository;
+        ObservableCollection<Contact> viewContacts;
 
         public PhoneBookPresenter(IView view, IRepository repository)
         {
             this.formForChanges = new FormForChanges(this);
-            this.checkedList = new CheckedListBox();
 
-            _view = view;
+            this.view = view;
             view.Presenter = this;
-            _repository = repository;
-            bindingSource.DataSource = _repository.GetAllContacts();
+            this.repository = repository;
 
+            UpdateDataFromRepository();
             UpdateContactListView();
         }
         
         public void UpdateContactListView()
-        {
-            _view.PhoneBook = (DataTable)bindingSource.DataSource;
+        {         
+            view.dataGrid.DataSource = viewContacts;
+            view.ToRenewGrid();
         }
-
-        public void ToDeleteContact(int focusedRowHandle)
+        public void UpdateDataFromRepository()
         {
-            _repository.PhoneBook.Rows[focusedRowHandle].Delete();
-            _repository.ToRewritingXML();
+            this.viewContacts = repository.GetAllContacts();
+        }
+        public void ToDeleteContact(int focusedContactId)
+        {
+            for (int i = 0; i < repository.contacts.Count; i++)
+            {
+                if (repository.contacts[i].id == focusedContactId)
+                {
+                    repository.contacts.RemoveAt(i);
+                }
+            }
+
+            for (int i = 0; i < viewContacts.Count; i++)
+            {
+                if (viewContacts[i].id == focusedContactId)
+                {
+                    viewContacts.RemoveAt(i);
+                }
+            }
+
+            repository.ToRewritingXML();
             UpdateContactListView();
         }
         public void ToSort()
         {
-            _repository.PhoneBook = _view.PhoneBook.CreateDataReader().GetSchemaTable();
+
+        }
+        public void ToFilterGrid()
+        {
+            viewContacts.Clear();
+
+            var MTS = new Regex("^[0][6][6]|^[0][9][5]|^[0][5][0]|^[0][9][9]");
+            var Life = new Regex("^[0][6][3]|^[0][9][3]|^[0][7][3]");
+            var Kyivstar = new Regex("^[0][6][7]|^[0][6][8]|^[0][9][8]|^[0][9][7]|^[0][9][6]");
+
+            if (view.checkedListBox.GetItemChecked(0))
+            {
+                ToFilter(MTS);
+            }
+            if (view.checkedListBox.GetItemChecked(1))
+            {
+                ToFilter(Life);
+            }
+            if (view.checkedListBox.GetItemChecked(2))
+            {
+                ToFilter(Kyivstar);
+            }
+            if (view.checkedListBox.GetItemChecked(0) == false && view.checkedListBox.GetItemChecked(1) == false &&
+                view.checkedListBox.GetItemChecked(2) == false)
+            {
+                viewContacts = repository.contacts;
+                UpdateContactListView();
+            }    
         }
 
-        public void ToFilter(Regex phone_operator, DataTable FilterPhoneBook)
+        public void ToFilter(Regex phone_operator)
         {
-            for (int i = 0; i < _repository.PhoneBook.Rows.Count; i++)
+            for (int i = 0; i < repository.contacts.Count; i++)
             {
-                object[] values = _repository.PhoneBook.Rows[i].ItemArray;
+                Contact contact = repository.contacts[i];
 
-                if (phone_operator.IsMatch(values[1].ToString()))
+                if (phone_operator.IsMatch(contact.Phone.ToString()))
                 {
-                    FilterPhoneBook.NewRow();
-                    FilterPhoneBook.Rows.Add(values);
+                    viewContacts.Add(contact);
                 }
             }
 
             UpdateContactListView();
         }
 
-        public void ToFilterGrid()
-        {
-            //создаем новую таблицу данных для grid, исходя из заданных параметров фильтра
-            DataTable FilterPhoneBook = new DataTable();
-
-            //заполняем заголовок новой таблицы
-            FilterPhoneBook.Columns.Add(_repository.PhoneBook.Columns[0].ColumnName);
-            FilterPhoneBook.Columns.Add(_repository.PhoneBook.Columns[1].ColumnName);
-
-            //создаем регулярные выражения для фильтрации
-            var MTS = new Regex("^[0][6][6]|^[0][9][5]|^[0][5][0]|^[0][9][9]");
-            var Life = new Regex("^[0][6][3]|^[0][9][3]|^[0][7][3]");
-            var Kyivstar = new Regex("^[0][6][7]|^[0][6][8]|^[0][9][8]|^[0][9][7]|^[0][9][6]");
-
-            if (checkedList.GetItemChecked(0))
-            {
-                ToFilter(MTS, FilterPhoneBook);
-            }
-            if (checkedList.GetItemChecked(1))
-            {
-                ToFilter(Life, FilterPhoneBook);
-            }
-            if (checkedList.GetItemChecked(2))
-            {
-                ToFilter(Kyivstar, FilterPhoneBook);
-            }
-            if (checkedList.GetItemChecked(0) == false && checkedList.GetItemChecked(1) == false &&
-                checkedList.GetItemChecked(2) == false)
-
-                UpdateContactListView();
-        }
-
         public void ToAddContact(string textBox1, string textBox2)
         {
-            _repository.PhoneBook.NewRow();
-            _repository.PhoneBook.Rows.Add(textBox1, textBox2);
+            repository.contacts.Add(new Contact { fullName = textBox1, Phone = textBox2, 
+                id = repository.contacts[repository.contacts.Count-1].id + 1 }) ;
 
-            _repository.ToRewritingXML();
+            viewContacts.Add(new Contact { fullName = textBox1, Phone = textBox2, 
+                id = repository.contacts[repository.contacts.Count-1].id + 1 }) ;
+
+            repository.ToRewritingXML();
             UpdateContactListView();
         }
 
-        public void ToChangeContact(int rowHandle, string textBox1, string textBox2)
+        public void ToChangeContact(int focusedContactId, string name, string phone)
         {
-            _repository.PhoneBook.Rows[rowHandle].ItemArray = new string[2] { textBox1, textBox2 };
+            foreach(Contact contact in repository.contacts)
+            {
+                if (contact.id == focusedContactId)
+                {
+                    contact.fullName = name;
+                    contact.Phone = phone;
+                }
+            }
 
-            _repository.ToRewritingXML();
+            for (int i = 0; i < viewContacts.Count; i++)
+            {
+                if (viewContacts[i].id == focusedContactId)
+                {
+                    viewContacts[i].fullName = name;
+                    viewContacts[i].Phone = phone;
+                }
+            }
+
+            repository.ToRewritingXML();
             UpdateContactListView();
         }
     }

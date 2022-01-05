@@ -6,12 +6,17 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Data;
+using System.Windows.Forms;
 
 namespace DXApplication1.View
 {
     public interface IView
     {
-        DataTable PhoneBook { get; set; }
+        DataGrid dataGrid { get; set; }
+
+        CheckedListBox checkedListBox { get; set; }
+
+        void ToRenewGrid();
 
         void ChangeContact();
 

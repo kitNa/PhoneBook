@@ -17,16 +17,22 @@ namespace DXApplication1
 {
     public partial class FormMain : DevExpress.XtraEditors.XtraForm, IView
     {
+        public CheckedListBox checkedListBox { get; set; }
+        public DataGrid dataGrid { get; set; }
+        public Contact focusedContact { get; set; }
+
         public Presenter.PhoneBookPresenter Presenter { private get; set; }
 
         public FormMain()
         {
             InitializeComponent();
+            dataGrid = new DataGrid();
+            checkedListBox = this.checkedList;
         }
-        public DataTable PhoneBook
+
+        public void ToRenewGrid()
         {
-            get { return ((DataTable)this.PhoneBookControl.DataSource); }
-            set { this.PhoneBookControl.DataSource = value; }
+            this.PhoneBookControl.DataSource = dataGrid.DataSource;
         }
 
         private void FormMain_Load(object sender, EventArgs e)
@@ -41,7 +47,6 @@ namespace DXApplication1
         {
             AddContact();
         }
-
         private void редагуватиToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ChangeContact();
@@ -54,7 +59,6 @@ namespace DXApplication1
         {
             ChangeContact();
         }
-
         private void видалитиToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DeleteContact();
@@ -71,6 +75,7 @@ namespace DXApplication1
 
         private void button2_Click(object sender, EventArgs e)
         {
+            Presenter.UpdateDataFromRepository();
             Presenter.UpdateContactListView();
         }
  
@@ -79,11 +84,11 @@ namespace DXApplication1
             FormForChanges change_contact = new FormForChanges(Presenter);
             change_contact.Text = "Бажаєте редагувати контакт?";
 
-            change_contact.rowHandle = ContactList.FocusedRowHandle;
-            object[] values = ContactList.GetDataRow(change_contact.rowHandle).ItemArray;
+            focusedContact = (Contact)ContactList.GetRow(ContactList.FocusedRowHandle);
 
-            change_contact.textBox1.Text = values[0].ToString();
-            change_contact.textBox2.Text = values[1].ToString();
+            change_contact.focusedContactId = focusedContact.id;
+            change_contact.textBox1.Text = focusedContact.fullName;
+            change_contact.textBox2.Text = focusedContact.Phone;
 
             change_contact.ShowDialog();
         }
@@ -97,7 +102,6 @@ namespace DXApplication1
 
         public void DeleteContact()
         {
-            //вызываем MessageBox с необходимыми параметрами
             DialogResult result = MessageBox.Show("Ви точно бажаєте видалити цей контакт?",
                 "Підтвердження",
                 MessageBoxButtons.YesNo,
@@ -107,7 +111,8 @@ namespace DXApplication1
 
             if (result == DialogResult.Yes)
             {
-                Presenter.ToDeleteContact(ContactList.FocusedRowHandle);
+                Contact focusedContact = (Contact)ContactList.GetRow(ContactList.FocusedRowHandle);
+                Presenter.ToDeleteContact(focusedContact.id);
             }
         }
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)

@@ -33,6 +33,9 @@ namespace DXApplication1
             DevExpress.XtraGrid.GridLevelNode gridLevelNode1 = new DevExpress.XtraGrid.GridLevelNode();
             this.PhoneBookControl = new DevExpress.XtraGrid.GridControl();
             this.ContactList = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.fullName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.Phone = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.id = new DevExpress.XtraGrid.Columns.GridColumn();
             this.hideContainerLeft = new DevExpress.XtraBars.Docking.AutoHideContainer();
             this.dockManager1 = new DevExpress.XtraBars.Docking.DockManager(this.components);
             this.autoHideContainer2 = new DevExpress.XtraBars.Docking.AutoHideContainer();
@@ -67,12 +70,12 @@ namespace DXApplication1
             gridLevelNode1.RelationName = "Level1";
             this.PhoneBookControl.LevelTree.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
             gridLevelNode1});
-            this.PhoneBookControl.Location = new System.Drawing.Point(35, 30);
+            this.PhoneBookControl.Location = new System.Drawing.Point(28, 30);
             this.PhoneBookControl.LookAndFeel.SkinName = "Office 2010 Blue";
             this.PhoneBookControl.LookAndFeel.UseDefaultLookAndFeel = false;
             this.PhoneBookControl.MainView = this.ContactList;
             this.PhoneBookControl.Name = "PhoneBookControl";
-            this.PhoneBookControl.Size = new System.Drawing.Size(512, 467);
+            this.PhoneBookControl.Size = new System.Drawing.Size(463, 383);
             this.PhoneBookControl.TabIndex = 0;
             this.PhoneBookControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.ContactList});
@@ -80,6 +83,10 @@ namespace DXApplication1
             // ContactList
             // 
             this.ContactList.ActiveFilterEnabled = false;
+            this.ContactList.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.fullName,
+            this.Phone,
+            this.id});
             this.ContactList.GridControl = this.PhoneBookControl;
             this.ContactList.Name = "ContactList";
             this.ContactList.OptionsBehavior.Editable = false;
@@ -91,6 +98,34 @@ namespace DXApplication1
             this.ContactList.OptionsView.ShowGroupPanel = false;
             this.ContactList.CustomColumnSort += new DevExpress.XtraGrid.Views.Base.CustomColumnSortEventHandler(this.ContactList_CustomColumnSort);
             this.ContactList.DoubleClick += new System.EventHandler(this.ContactList_DoubleClick);
+            // 
+            // fullName
+            // 
+            this.fullName.Caption = "Прізвище та ім\'я";
+            this.fullName.FieldName = "fullName";
+            this.fullName.MinWidth = 25;
+            this.fullName.Name = "fullName";
+            this.fullName.Visible = true;
+            this.fullName.VisibleIndex = 0;
+            this.fullName.Width = 94;
+            // 
+            // Phone
+            // 
+            this.Phone.Caption = "Номер телефону";
+            this.Phone.FieldName = "Phone";
+            this.Phone.MinWidth = 25;
+            this.Phone.Name = "Phone";
+            this.Phone.Visible = true;
+            this.Phone.VisibleIndex = 1;
+            this.Phone.Width = 94;
+            // 
+            // id
+            // 
+            this.id.Caption = "порядковий номер";
+            this.id.FieldName = "id";
+            this.id.MinWidth = 25;
+            this.id.Name = "id";
+            this.id.Width = 94;
             // 
             // hideContainerLeft
             // 
@@ -126,7 +161,7 @@ namespace DXApplication1
             this.autoHideContainer2.Dock = System.Windows.Forms.DockStyle.Left;
             this.autoHideContainer2.Location = new System.Drawing.Point(0, 30);
             this.autoHideContainer2.Name = "autoHideContainer2";
-            this.autoHideContainer2.Size = new System.Drawing.Size(35, 467);
+            this.autoHideContainer2.Size = new System.Drawing.Size(28, 383);
             // 
             // dockPanel1
             // 
@@ -138,7 +173,7 @@ namespace DXApplication1
             this.dockPanel1.OriginalSize = new System.Drawing.Size(157, 200);
             this.dockPanel1.SavedDock = DevExpress.XtraBars.Docking.DockingStyle.Left;
             this.dockPanel1.SavedIndex = 0;
-            this.dockPanel1.Size = new System.Drawing.Size(157, 467);
+            this.dockPanel1.Size = new System.Drawing.Size(157, 383);
             this.dockPanel1.TabsPosition = DevExpress.XtraBars.Docking.TabsPosition.Left;
             this.dockPanel1.Text = "Фільтр за оператором телефонного зв\'язку";
             this.dockPanel1.Visibility = DevExpress.XtraBars.Docking.DockVisibility.AutoHide;
@@ -150,7 +185,7 @@ namespace DXApplication1
             this.dockPanel1_Container.Controls.Add(this.checkedList);
             this.dockPanel1_Container.Location = new System.Drawing.Point(5, 28);
             this.dockPanel1_Container.Name = "dockPanel1_Container";
-            this.dockPanel1_Container.Size = new System.Drawing.Size(145, 434);
+            this.dockPanel1_Container.Size = new System.Drawing.Size(145, 350);
             this.dockPanel1_Container.TabIndex = 0;
             // 
             // button2
@@ -224,7 +259,7 @@ namespace DXApplication1
             this.menuStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(547, 30);
+            this.menuStrip1.Size = new System.Drawing.Size(491, 30);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -236,7 +271,7 @@ namespace DXApplication1
             this.редагуватиToolStripMenuItem,
             this.видалитиToolStripMenuItem});
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(538, 24);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(482, 24);
             this.toolStripMenuItem1.Text = "Внести зміни";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click_1);
             // 
@@ -273,7 +308,7 @@ namespace DXApplication1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(547, 497);
+            this.ClientSize = new System.Drawing.Size(491, 413);
             this.ContextMenuStrip = this.ContextMenu;
             this.Controls.Add(this.PhoneBookControl);
             this.Controls.Add(this.autoHideContainer2);
@@ -324,6 +359,9 @@ namespace DXApplication1
         private System.Windows.Forms.Button button1;
         public System.Windows.Forms.CheckedListBox checkedList;
         public DevExpress.XtraGrid.Views.Grid.GridView ContactList;
+        public DevExpress.XtraGrid.Columns.GridColumn fullName;
+        public DevExpress.XtraGrid.Columns.GridColumn Phone;
+        private DevExpress.XtraGrid.Columns.GridColumn id;
     }
 }
 

@@ -11,9 +11,9 @@ namespace DXApplication1.Model
 {
     public interface IRepository
     {
-        DataTable PhoneBook { get; set; }
+        ObservableCollection<Contact> contacts { get; set; }
 
-        DataTable GetAllContacts();
+        ObservableCollection<Contact> GetAllContacts();
 
         void ToRewritingXML();
     }

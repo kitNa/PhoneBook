@@ -17,7 +17,7 @@ namespace DXApplication1
     {
         public Presenter.PhoneBookPresenter Presenter { private get; set; }
 
-        public int rowHandle { get; set; }
+        public int focusedContactId { get; set; }
 
         public FormForChanges(Presenter.PhoneBookPresenter Presenter)
         {
@@ -26,10 +26,10 @@ namespace DXApplication1
         }
 
         private void button1_Click(object sender, EventArgs e)
-        {   
+        {
             try
             {
-                Convert.ToInt32(textBox2.Text);  
+                Convert.ToInt32(textBox2.Text);
 
                 if (this.Text.Contains("Бажаєте додати контакт?"))
                 {
@@ -49,21 +49,21 @@ namespace DXApplication1
                             MessageBoxOptions.DefaultDesktopOnly);
 
                         if (result == DialogResult.Yes)
-                        {
-                            Presenter.ToDeleteContact(rowHandle);
+                        { 
+                            Presenter.ToDeleteContact(focusedContactId);
                             this.Hide();
                         }
                     }
                     else
                     {
-                        Presenter.ToChangeContact(rowHandle, textBox1.Text, textBox2.Text);
+                        Presenter.ToChangeContact(focusedContactId, textBox1.Text, textBox2.Text);
                         this.Hide();
                     }
                 }
             }
             catch
             {
-               MessageBox.Show("Номер телефону має бути заповненний та може включати лише цифри", "Недопустиме значення!");
+                MessageBox.Show("Номер телефону має бути заповненний та може включати лише цифри", "Недопустиме значення!");
             }
         }
 
