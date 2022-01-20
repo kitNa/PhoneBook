@@ -12,11 +12,8 @@ namespace DXApplication1.View
 {
     public interface IView
     {
-        DataGrid dataGrid { get; set; }
-
+        BindingSource bindingSource { get; set; }
         CheckedListBox checkedListBox { get; set; }
-
-        void ToRenewGrid();
 
         void ChangeContact();
 

@@ -6,15 +6,19 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Data;
+using System.Runtime.CompilerServices;
+using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace DXApplication1.Model
 {
     public interface IRepository
     {
-        ObservableCollection<Contact> contacts { get; set; }
+        BindingList<Contact> contacts { get; set; }
 
-        ObservableCollection<Contact> GetAllContacts();
+        BindingList<Contact> GetAllContacts();
 
-        void ToRewritingXML();
+        void RewriteXML();
     }
 }
+

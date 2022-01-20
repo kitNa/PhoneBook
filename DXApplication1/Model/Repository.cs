@@ -9,6 +9,7 @@ using System.IO;
 using System.Xml.Serialization;
 using System.Data;
 using System.Xml;
+using System.ComponentModel;
 
 namespace DXApplication1.Model
 {
@@ -16,11 +17,11 @@ namespace DXApplication1.Model
     {
         private readonly string xmlFile;
 
-        public ObservableCollection<Contact> contacts { get; set; }
+        public BindingList<Contact> contacts { get; set; }
 
-        ObservableCollection<Contact> allContacts = new ObservableCollection<Contact>();
+        BindingList<Contact> allContacts = new BindingList<Contact>();
 
-        XmlSerializer formatter = new XmlSerializer(typeof(ObservableCollection<Contact>));
+        XmlSerializer formatter = new XmlSerializer(typeof(BindingList<Contact>));
 
         public Repository(string fullPath)
         {
@@ -28,21 +29,20 @@ namespace DXApplication1.Model
             contacts = GetAllContacts();
         }
 
-        public ObservableCollection<Contact> GetAllContacts()
+        public BindingList<Contact> GetAllContacts()
         {
-            
             using (FileStream fs = new FileStream(xmlFile, FileMode.Open))
             {
-                allContacts = (ObservableCollection<Contact>)formatter.Deserialize(fs);
+                allContacts = (BindingList<Contact>)formatter.Deserialize(fs);
             }
 
             return allContacts;
         }
 
-        public void ToRewritingXML()
+        public void RewriteXML()
         {
             using (FileStream fs = new FileStream(xmlFile, FileMode.Create))
-            {             
+            {
                 formatter.Serialize(fs, contacts);
             }
         }

@@ -18,51 +18,51 @@ namespace DXApplication1
     public partial class FormMain : DevExpress.XtraEditors.XtraForm, IView
     {
         public CheckedListBox checkedListBox { get; set; }
-        public DataGrid dataGrid { get; set; }
         public Contact focusedContact { get; set; }
-
         public Presenter.PhoneBookPresenter Presenter { private get; set; }
+
+        public BindingSource bindingSource
+        {
+            get { return this.contactsBindingSource; }
+            set { this.contactsBindingSource = bindingSource; }
+        }
 
         public FormMain()
         {
             InitializeComponent();
-            dataGrid = new DataGrid();
             checkedListBox = this.checkedList;
         }
 
-        public void ToRenewGrid()
-        {
-            this.PhoneBookControl.DataSource = dataGrid.DataSource;
-        }
-
-        private void FormMain_Load(object sender, EventArgs e)
-        {
-            Presenter.UpdateContactListView();
-        }
         private void добавитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AddContact();
         }
+
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
             AddContact();
         }
+
         private void редагуватиToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ChangeContact();
         }
+
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
             ChangeContact();
         }
+
         private void ContactList_DoubleClick(object sender, EventArgs e)
         {
             ChangeContact();
         }
+
         private void видалитиToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DeleteContact();
         }
+
         private void toolStripMenuItem3_Click(object sender, EventArgs e)
         {
             DeleteContact();
@@ -70,15 +70,14 @@ namespace DXApplication1
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Presenter.ToFilterGrid();
+            Presenter.FilterGrid();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Presenter.UpdateDataFromRepository();
             Presenter.UpdateContactListView();
         }
- 
+
         public void ChangeContact()
         {
             FormForChanges change_contact = new FormForChanges(Presenter);
@@ -102,34 +101,24 @@ namespace DXApplication1
 
         public void DeleteContact()
         {
-            DialogResult result = MessageBox.Show("Ви точно бажаєте видалити цей контакт?",
-                "Підтвердження",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question,
-                MessageBoxDefaultButton.Button2,
-                MessageBoxOptions.DefaultDesktopOnly);
+            DialogResult result = ShowMassageBox();
 
             if (result == DialogResult.Yes)
             {
                 Contact focusedContact = (Contact)ContactList.GetRow(ContactList.FocusedRowHandle);
-                Presenter.ToDeleteContact(focusedContact.id);
+                Presenter.DeleteContact(focusedContact.id);
             }
         }
-        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            FormCollection forms = Application.OpenForms;
-            foreach (Form form in forms)
-                form.Hide();
-        }
 
-        private void ContactList_CustomColumnSort(object sender, DevExpress.XtraGrid.Views.Base.CustomColumnSortEventArgs e)
+        public DialogResult ShowMassageBox()
         {
-            Presenter.ToSort();
-        }
+            DialogResult result = MessageBox.Show("Ви точно бажаєте видалити цей контакт?",
+               "Підтвердження",
+               MessageBoxButtons.YesNo,
+               MessageBoxIcon.Question,
+               MessageBoxDefaultButton.Button2);
 
-        private void toolStripMenuItem1_Click_1(object sender, EventArgs e)
-        {
-
+            return result;
         }
-    }  
+    }
 }

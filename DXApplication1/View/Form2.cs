@@ -10,18 +10,19 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.IO;
 using DXApplication1;
+using DXApplication1.Presenter;
 
 namespace DXApplication1
 {
     public partial class FormForChanges : Form
     {
-        public Presenter.PhoneBookPresenter Presenter { private get; set; }
-
+        public PhoneBookPresenter presenter { private get; set; }
         public int focusedContactId { get; set; }
+        public int focusedContactRow { get; set; }
 
-        public FormForChanges(Presenter.PhoneBookPresenter Presenter)
+        public FormForChanges(PhoneBookPresenter presenter)
         {
-            this.Presenter = Presenter;
+            this.presenter = presenter;
             InitializeComponent();
         }
 
@@ -33,33 +34,27 @@ namespace DXApplication1
 
                 if (this.Text.Contains("Бажаєте додати контакт?"))
                 {
-                    Presenter.ToAddContact(textBox1.Text, textBox2.Text);
-                    this.Hide();
+                    presenter.AddContact(textBox1.Text, textBox2.Text);
                 }
                 else if (this.Text.Contains("Бажаєте редагувати контакт?"))
                 {
                     //если пользователь очистил textBox, вызываем MessageBox для подтверждения желания удалить контакт
                     if (this.textBox1.Text == "")
                     {
-                        DialogResult result = MessageBox.Show("Ви точно бажаєте видалити цей контакт?",
-                            "Підтвердження",
-                            MessageBoxButtons.YesNo,
-                            MessageBoxIcon.Question,
-                            MessageBoxDefaultButton.Button2,
-                            MessageBoxOptions.DefaultDesktopOnly);
+                        DialogResult result = ShowMassageBox();
 
                         if (result == DialogResult.Yes)
-                        { 
-                            Presenter.ToDeleteContact(focusedContactId);
-                            this.Hide();
+                        {
+                            presenter.DeleteContact(focusedContactId);
                         }
                     }
                     else
                     {
-                        Presenter.ToChangeContact(focusedContactId, textBox1.Text, textBox2.Text);
-                        this.Hide();
+                        presenter.ChangeContact(focusedContactId, textBox1.Text, textBox2.Text);
                     }
                 }
+
+                this.Close();
             }
             catch
             {
@@ -69,7 +64,18 @@ namespace DXApplication1
 
         private void button2_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            this.Close();
+        }
+
+        public DialogResult ShowMassageBox()
+        {
+            DialogResult result = MessageBox.Show("Ви точно бажаєте видалити цей контакт?",
+               "Підтвердження",
+               MessageBoxButtons.YesNo,
+               MessageBoxIcon.Question,
+               MessageBoxDefaultButton.Button2);
+
+            return result;
         }
     }
 }

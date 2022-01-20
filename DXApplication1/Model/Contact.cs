@@ -12,13 +12,13 @@ namespace DXApplication1.Model
     public class Contact
     {
         public string fullName { get; set; }
-
         public string Phone { get; set; }
         public int id { get; set; }
 
         public Contact()
         {
         }
+
         public Contact(string name, string phone)
         {
             this.fullName = name;

@@ -16,17 +16,22 @@
     <id>3</id>
   </Contact>
   <Contact>
+    <fullName>Пічморга Олександр</fullName>
+    <Phone>0999098776</Phone>
+    <id>4</id>
+  </Contact>
+  <Contact>
     <fullName>Алцибеєва Єлізавета</fullName>
     <Phone>0996784565</Phone>
     <id>5</id>
   </Contact>
   <Contact>
-    <fullName>Горбунцов Максим</fullName>
+    <fullName>Горбунець Максим</fullName>
     <Phone>0995674523</Phone>
     <id>6</id>
   </Contact>
   <Contact>
-    <fullName>Лисенко Олена</fullName>
+    <fullName>Лисенко Олексій</fullName>
     <Phone>0632456782</Phone>
     <id>7</id>
   </Contact>
@@ -56,7 +61,7 @@
     <id>12</id>
   </Contact>
   <Contact>
-    <fullName>Дудкін Геннадій</fullName>
+    <fullName>Дудкін Генадій</fullName>
     <Phone>0638534212</Phone>
     <id>13</id>
   </Contact>
@@ -71,18 +76,18 @@
     <id>15</id>
   </Contact>
   <Contact>
-    <fullName>Купцова Олена</fullName>
-    <Phone>0991231212</Phone>
+    <fullName>Зінченко Ярослав</fullName>
+    <Phone>0662733323</Phone>
     <id>16</id>
   </Contact>
   <Contact>
-    <fullName>Остапчук Матвій</fullName>
-    <Phone>0673452535</Phone>
+    <fullName>Зінченко Ярослав</fullName>
+    <Phone>0934562346</Phone>
     <id>17</id>
   </Contact>
   <Contact>
-    <fullName>Совко Соломія</fullName>
-    <Phone>0987885867</Phone>
+    <fullName>ggh</fullName>
+    <Phone>1</Phone>
     <id>18</id>
   </Contact>
 </ArrayOfContact>

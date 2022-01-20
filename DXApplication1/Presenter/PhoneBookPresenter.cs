@@ -22,30 +22,24 @@ namespace DXApplication1.Presenter
         private readonly FormForChanges formForChanges;
         private readonly IView view;
         private readonly IRepository repository;
-        ObservableCollection<Contact> viewContacts;
+        BindingList<Contact> viewContacts;
 
         public PhoneBookPresenter(IView view, IRepository repository)
         {
             this.formForChanges = new FormForChanges(this);
-
             this.view = view;
             view.Presenter = this;
             this.repository = repository;
-
-            UpdateDataFromRepository();
             UpdateContactListView();
         }
-        
+
         public void UpdateContactListView()
-        {         
-            view.dataGrid.DataSource = viewContacts;
-            view.ToRenewGrid();
-        }
-        public void UpdateDataFromRepository()
         {
-            this.viewContacts = repository.GetAllContacts();
+            viewContacts = repository.GetAllContacts();
+            view.bindingSource.DataSource = viewContacts;
         }
-        public void ToDeleteContact(int focusedContactId)
+
+        public void DeleteContact(int focusedContactId)
         {
             for (int i = 0; i < repository.contacts.Count; i++)
             {
@@ -63,14 +57,10 @@ namespace DXApplication1.Presenter
                 }
             }
 
-            repository.ToRewritingXML();
-            UpdateContactListView();
+            repository.RewriteXML();
         }
-        public void ToSort()
-        {
 
-        }
-        public void ToFilterGrid()
+        public void FilterGrid()
         {
             viewContacts.Clear();
 
@@ -80,25 +70,24 @@ namespace DXApplication1.Presenter
 
             if (view.checkedListBox.GetItemChecked(0))
             {
-                ToFilter(MTS);
+                Filter(MTS);
             }
             if (view.checkedListBox.GetItemChecked(1))
             {
-                ToFilter(Life);
+                Filter(Life);
             }
             if (view.checkedListBox.GetItemChecked(2))
             {
-                ToFilter(Kyivstar);
+                Filter(Kyivstar);
             }
             if (view.checkedListBox.GetItemChecked(0) == false && view.checkedListBox.GetItemChecked(1) == false &&
                 view.checkedListBox.GetItemChecked(2) == false)
             {
-                viewContacts = repository.contacts;
-                UpdateContactListView();
-            }    
+                this.viewContacts = repository.contacts;
+            }
         }
 
-        public void ToFilter(Regex phone_operator)
+        public void Filter(Regex phone_operator)
         {
             for (int i = 0; i < repository.contacts.Count; i++)
             {
@@ -109,25 +98,30 @@ namespace DXApplication1.Presenter
                     viewContacts.Add(contact);
                 }
             }
-
-            UpdateContactListView();
         }
 
-        public void ToAddContact(string textBox1, string textBox2)
+        public void AddContact(string textBox1, string textBox2)
         {
-            repository.contacts.Add(new Contact { fullName = textBox1, Phone = textBox2, 
-                id = repository.contacts[repository.contacts.Count-1].id + 1 }) ;
+            repository.contacts.Add(new Contact
+            {
+                fullName = textBox1,
+                Phone = textBox2,
+                id = repository.contacts[repository.contacts.Count - 1].id + 1
+            });
 
-            viewContacts.Add(new Contact { fullName = textBox1, Phone = textBox2, 
-                id = repository.contacts[repository.contacts.Count-1].id + 1 }) ;
+            viewContacts.Add(new Contact
+            {
+                fullName = textBox1,
+                Phone = textBox2,
+                id = repository.contacts[repository.contacts.Count - 1].id + 1
+            });
 
-            repository.ToRewritingXML();
-            UpdateContactListView();
+            repository.RewriteXML();
         }
 
-        public void ToChangeContact(int focusedContactId, string name, string phone)
+        public void ChangeContact(int focusedContactId, string name, string phone)
         {
-            foreach(Contact contact in repository.contacts)
+            foreach (Contact contact in repository.contacts)
             {
                 if (contact.id == focusedContactId)
                 {
@@ -145,8 +139,7 @@ namespace DXApplication1.Presenter
                 }
             }
 
-            repository.ToRewritingXML();
-            UpdateContactListView();
+            repository.RewriteXML();
         }
     }
 }
