@@ -32,6 +32,7 @@ namespace DXApplication1
             this.components = new System.ComponentModel.Container();
             DevExpress.XtraGrid.GridLevelNode gridLevelNode1 = new DevExpress.XtraGrid.GridLevelNode();
             this.PhoneBookControl = new DevExpress.XtraGrid.GridControl();
+            this.contactsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.repositoryBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.ContactList = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.fullName = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -54,8 +55,8 @@ namespace DXApplication1
             this.редагуватиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.видалитиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.autoHideContainer1 = new DevExpress.XtraBars.Docking.AutoHideContainer();
-            this.contactsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.PhoneBookControl)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.contactsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ContactList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).BeginInit();
@@ -64,7 +65,6 @@ namespace DXApplication1
             this.dockPanel1_Container.SuspendLayout();
             this.ContextMenu.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.contactsBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // PhoneBookControl
@@ -75,15 +75,20 @@ namespace DXApplication1
             gridLevelNode1.RelationName = "Level1";
             this.PhoneBookControl.LevelTree.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
             gridLevelNode1});
-            this.PhoneBookControl.Location = new System.Drawing.Point(28, 30);
+            this.PhoneBookControl.Location = new System.Drawing.Point(35, 30);
             this.PhoneBookControl.LookAndFeel.SkinName = "Office 2010 Blue";
             this.PhoneBookControl.LookAndFeel.UseDefaultLookAndFeel = false;
             this.PhoneBookControl.MainView = this.ContactList;
             this.PhoneBookControl.Name = "PhoneBookControl";
-            this.PhoneBookControl.Size = new System.Drawing.Size(335, 425);
+            this.PhoneBookControl.Size = new System.Drawing.Size(296, 377);
             this.PhoneBookControl.TabIndex = 0;
             this.PhoneBookControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.ContactList});
+            // 
+            // contactsBindingSource
+            // 
+            this.contactsBindingSource.DataMember = "Contacts";
+            this.contactsBindingSource.DataSource = this.repositoryBindingSource;
             // 
             // repositoryBindingSource
             // 
@@ -169,7 +174,7 @@ namespace DXApplication1
             this.autoHideContainer2.Dock = System.Windows.Forms.DockStyle.Left;
             this.autoHideContainer2.Location = new System.Drawing.Point(0, 30);
             this.autoHideContainer2.Name = "autoHideContainer2";
-            this.autoHideContainer2.Size = new System.Drawing.Size(28, 425);
+            this.autoHideContainer2.Size = new System.Drawing.Size(35, 377);
             // 
             // dockPanel1
             // 
@@ -181,7 +186,7 @@ namespace DXApplication1
             this.dockPanel1.OriginalSize = new System.Drawing.Size(157, 200);
             this.dockPanel1.SavedDock = DevExpress.XtraBars.Docking.DockingStyle.Left;
             this.dockPanel1.SavedIndex = 0;
-            this.dockPanel1.Size = new System.Drawing.Size(157, 353);
+            this.dockPanel1.Size = new System.Drawing.Size(157, 377);
             this.dockPanel1.TabsPosition = DevExpress.XtraBars.Docking.TabsPosition.Left;
             this.dockPanel1.Text = "Фільтр за оператором телефонного зв\'язку";
             this.dockPanel1.Visibility = DevExpress.XtraBars.Docking.DockVisibility.AutoHide;
@@ -193,7 +198,7 @@ namespace DXApplication1
             this.dockPanel1_Container.Controls.Add(this.checkedList);
             this.dockPanel1_Container.Location = new System.Drawing.Point(5, 28);
             this.dockPanel1_Container.Name = "dockPanel1_Container";
-            this.dockPanel1_Container.Size = new System.Drawing.Size(145, 320);
+            this.dockPanel1_Container.Size = new System.Drawing.Size(145, 344);
             this.dockPanel1_Container.TabIndex = 0;
             // 
             // button2
@@ -267,7 +272,7 @@ namespace DXApplication1
             this.menuStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(363, 30);
+            this.menuStrip1.Size = new System.Drawing.Size(331, 30);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -279,7 +284,7 @@ namespace DXApplication1
             this.редагуватиToolStripMenuItem,
             this.видалитиToolStripMenuItem});
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(356, 24);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(322, 24);
             this.toolStripMenuItem1.Text = "Внести зміни";
             // 
             // добавитьToolStripMenuItem
@@ -311,16 +316,11 @@ namespace DXApplication1
             this.autoHideContainer1.Name = "autoHideContainer1";
             this.autoHideContainer1.Size = new System.Drawing.Size(22, 504);
             // 
-            // contactsBindingSource
-            // 
-            this.contactsBindingSource.DataMember = "Contacts";
-            this.contactsBindingSource.DataSource = this.repositoryBindingSource;
-            // 
             // FormMain
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(363, 455);
+            this.ClientSize = new System.Drawing.Size(331, 407);
             this.ContextMenuStrip = this.ContextMenu;
             this.Controls.Add(this.PhoneBookControl);
             this.Controls.Add(this.autoHideContainer2);
@@ -336,6 +336,7 @@ namespace DXApplication1
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Телефонна книга";
             ((System.ComponentModel.ISupportInitialize)(this.PhoneBookControl)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.contactsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ContactList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).EndInit();
@@ -345,7 +346,6 @@ namespace DXApplication1
             this.ContextMenu.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.contactsBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

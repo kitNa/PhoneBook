@@ -36,7 +36,7 @@ namespace DXApplication1.Presenter
         public void UpdateContactListView()
         {
             viewContacts = repository.GetAllContacts();
-            view.bindingSource.DataSource = viewContacts;
+            view.SetDatasource(viewContacts);
         }
 
         public void DeleteContact(int focusedContactId)

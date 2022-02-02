@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<ArrayOfContact xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Contact>
+    <fullName>Радченко Марина</fullName>
+    <Phone>0667798945</Phone>
+    <id>1</id>
+  </Contact>
+  <Contact>
+    <fullName>Коломієць Оксана</fullName>
+    <Phone>0662703034</Phone>
+    <id>2</id>
+  </Contact>
+  <Contact>
+    <fullName>Іванченко Марія</fullName>
+    <Phone>0667895787</Phone>
+    <id>3</id>
+  </Contact>
+  <Contact>
+    <fullName>Пічморга Олександр</fullName>
+    <Phone>0999098776</Phone>
+    <id>4</id>
+  </Contact>
+  <Contact>
+    <fullName>Алцибеєва Єлізавета</fullName>
+    <Phone>0996784565</Phone>
+    <id>5</id>
+  </Contact>
+  <Contact>
+    <fullName>Горбунець Максим</fullName>
+    <Phone>0995674523</Phone>
+    <id>6</id>
+  </Contact>
+  <Contact>
+    <fullName>Лисенко Олексій</fullName>
+    <Phone>0632456782</Phone>
+    <id>7</id>
+  </Contact>
+  <Contact>
+    <fullName>Прунцева Тамара</fullName>
+    <Phone>0507773435</Phone>
+    <id>8</id>
+  </Contact>
+  <Contact>
+    <fullName>Матвієнко Ніна</fullName>
+    <Phone>0734567213</Phone>
+    <id>9</id>
+  </Contact>
+  <Contact>
+    <fullName>Гмиря Галина</fullName>
+    <Phone>0984563421</Phone>
+    <id>10</id>
+  </Contact>
+  <Contact>
+    <fullName>Купцова Аліна</fullName>
+    <Phone>0673452312</Phone>
+    <id>11</id>
+  </Contact>
+  <Contact>
+    <fullName>Артіпенко Віталій</fullName>
+    <Phone>0934521845</Phone>
+    <id>12</id>
+  </Contact>
+  <Contact>
+    <fullName>Дудкін Генадій</fullName>
+    <Phone>0638534212</Phone>
+    <id>13</id>
+  </Contact>
+  <Contact>
+    <fullName>Гмиря Міланія</fullName>
+    <Phone>0732451397</Phone>
+    <id>14</id>
+  </Contact>
+  <Contact>
+    <fullName>Сафронов Станіслав</fullName>
+    <Phone>0684562388</Phone>
+    <id>15</id>
+  </Contact>
+  <Contact>
+    <fullName>Зінченко Ярослав</fullName>
+    <Phone>0662733323</Phone>
+    <id>16</id>
+  </Contact>
+  <Contact>
+    <fullName>Зінченко Ярослав</fullName>
+    <Phone>0934562346</Phone>
+    <id>17</id>
+  </Contact>
+  <Contact>
+    <fullName>ggh</fullName>
+    <Phone>1</Phone>
+    <id>18</id>
+  </Contact>
+</ArrayOfContact>

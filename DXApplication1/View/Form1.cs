@@ -12,6 +12,7 @@ using System.IO;
 using System.Xml;
 using DXApplication1.View;
 using DXApplication1.Model;
+using DXApplication1.Presenter;
 
 namespace DXApplication1
 {
@@ -19,12 +20,18 @@ namespace DXApplication1
     {
         public CheckedListBox checkedListBox { get; set; }
         public Contact focusedContact { get; set; }
-        public Presenter.PhoneBookPresenter Presenter { private get; set; }
+        public PhoneBookPresenter Presenter { private get; set; }
 
-        public BindingSource bindingSource
+        public BindingSource bindingSource { get; set; }
+        //{
+        //    get { return this.contactsBindingSource; }
+        //    set { this.contactsBindingSource = bindingSource; }
+        //}
+
+        public void SetDatasource(BindingList<Contact> contacts)
         {
-            get { return this.contactsBindingSource; }
-            set { this.contactsBindingSource = bindingSource; }
+            this.contactsBindingSource.DataSource = contacts;
+//            this.bindingSource.DataSource = contacts;
         }
 
         public FormMain()
